@@ -1,5 +1,7 @@
 from random import randint
 
+from player import *
+
 #create a list of play options
 moves = ["rock", "paper", "scissors"]
 
@@ -8,47 +10,49 @@ computer = moves[randint(0,2)]
 
 #set player to False
 player = True
+
+#adds a userID
+userID = 0
 #adds a count total of 3 games
 count = 0
+#stores the outcome of each round
+rounds = []
+
+file = open('save.text', 'a+')
 
 print("\n------->Welcome to Rock, Paper, Scissors game<-------")
-playerName = input("\nPlease enter your name: ")
 
-if len(playerName) == 0 :
-    print("\nYour Name should contain at least one letter ")
-    playerName = input("\nPlease enter your name: ")
-    player == False
-
-else : 
-    player == True
+player, playerName = validatePlayerName(player)
 
 while player:   
     
-    print("Welcome "+playerName+"!\n")
+    print(f"Welcome {playerName}!\n")
 
     for i in range(1,4):
         
         computer = moves[randint(0,2)]
 
-        playerMove = input("\nMake your move: ").casefold()
+        playerMove = validatePlayerMove(moves) #Validates the players moves
         
-        #add function to validate playerMove
-        
-        count =+ i
+        count += i
         
         #add to function
         
         if computer == "paper" and playerMove == "rock":
             print("\nComputer wins!")
+            winner = "C"
             print(computer, " beats ", playerMove)
         elif computer == "rock" and playerMove == "scissors":
-           print("\nComputer wins!")
-           print(playerMove, " beats ", computer)
+            print("\nComputer wins!")
+            winner = "C"
+            print(playerMove, " beats ", computer)
         elif computer == "scissors" and playerMove == "paper":
             print("\nComputer wins!")
+            winner = "C"
             print(computer, " beats ", playerMove)
         elif computer == playerMove or playerMove == computer:
             print("\nIt's a tie!")
+            winner = "T"
             print(computer + " / " + playerMove )
             
         elif playerMove == "quit" or playerMove == "exit":
@@ -56,14 +60,20 @@ while player:
             
         else:
             print("\nPlayer wins!")
+            winner = "P"
             print(playerMove +" beats " +computer)
             
-            #add to function
-            
+        #add to function
+        
+        rounds.append(f'{winner} |')
+        
+    file.write(f'{playerName} {rounds} \n')
+      
     if playerMove == "quit" or playerMove == "exit":
         break
         
-    else: playAgain = input("\nWould you like to play another round? yes/no:  ").casefold()
+    else: 
+        playAgain = input("\nWould you like to play another round? yes/no:  ").casefold()
 
     #add this to function
     if playAgain == "no": 
