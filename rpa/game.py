@@ -1,6 +1,7 @@
 from random import randint
 
 from player import *
+from txtFile import addLines
 
 #create a list of play options
 moves = ["rock", "paper", "scissors"]
@@ -26,7 +27,7 @@ player, playerName = validatePlayerName(player)
 
 while player:   
     
-    print(f"Welcome {playerName}!\n")
+    print(f"\n------->Welcome {playerName}!<-------\n")
 
     for i in range(1,4):
         
@@ -67,7 +68,7 @@ while player:
         
         rounds.append(f'{winner} |')
         
-    file.write(f'{playerName} {rounds} \n')
+    addLines(file,playerName, rounds) #checks lines in file and limits file to 10 files.
       
     if playerMove == "quit" or playerMove == "exit":
         break
