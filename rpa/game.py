@@ -1,7 +1,7 @@
 from random import randint
 
 from player import *
-from txtFile import addLines
+from txtFile import *
 
 #create a list of play options
 moves = ["rock", "paper", "scissors"]
@@ -37,8 +37,6 @@ while player:
         
         count += i
         
-        #add to function
-        
         if computer == "paper" and playerMove == "rock":
             print("\nComputer wins!")
             winner = "C"
@@ -63,12 +61,12 @@ while player:
             print("\nPlayer wins!")
             winner = "P"
             print(playerMove +" beats " +computer)
-            
-        #add to function
         
         rounds.append(f'{winner} |')
         
-    addLines(file,playerName, rounds) #checks lines in file and limits file to 10 files.
+    current_date = getDate()
+    addDate(file, current_date)
+    addLines(file,playerName, rounds)
       
     if playerMove == "quit" or playerMove == "exit":
         break
@@ -76,7 +74,6 @@ while player:
     else: 
         playAgain = input("\nWould you like to play another round? yes/no:  ").casefold()
 
-    #add this to function
     if playAgain == "no": 
         print("\nThanks for playing! Bye-Bye!")
         break
